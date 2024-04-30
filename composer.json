@@ -1,0 +1,23 @@
+{
+    "name": "abner/omniplatform",
+    "description": "提供一个统一的接口来处理不同平台（如微信、抖音、快手）的SDK集成。",
+    "type": "library",
+    "license": "Apache 2.0",
+    "autoload": {
+        "psr-4": {
+            "Abner\\Omniplatform\\": "src/"
+        }
+    },
+    "authors": [
+        {
+            "name": "xuzizheng",
+            "email": "wan19950504@gmail.com"
+        }
+    ],
+    "require": {
+        "php": ">=7.1.0"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "^9.6"
+    }
+}
