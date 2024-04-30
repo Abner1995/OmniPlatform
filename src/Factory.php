@@ -6,10 +6,10 @@
  * @Description: Do not edit
  * @LastEditTime: 2024-04-30 10:26:02
  */
-namespace Abner\OmniPlatform;
+namespace Abner\Omniplatform;
 
 use InvalidArgumentException;
-use Abner\OmniPlatform\DouYin\MiniProgram\Auth;
+use Abner\Omniplatform\DouYin\MiniProgram\Auth;
 
 class Factory
 {

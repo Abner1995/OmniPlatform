@@ -6,7 +6,7 @@
  * @Description: Do not edit
  * @LastEditTime: 2024-04-30 11:00:24
  */
-namespace Abner\OmniPlatform\DouYin\MiniProgram;
+namespace Abner\Omniplatform\DouYin\MiniProgram;
 
 class Auth
 {

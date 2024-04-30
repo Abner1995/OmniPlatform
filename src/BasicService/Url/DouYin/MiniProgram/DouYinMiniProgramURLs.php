@@ -6,7 +6,7 @@
  * @Description: 抖音小程序URL
  * @LastEditTime: 2024-04-30 10:46:27
  */
-namespace Abner\OmniPlatform\BasicService\Url\DouYin\MiniProgram;
+namespace Abner\Omniplatform\BasicService\Url\DouYin\MiniProgram;
 
 /**
  * 抖音小程序URL
