@@ -11,7 +11,7 @@ namespace Abner\Omniplatform\WeChat\Decrypt;
  *    <li>-41016: base64解密失败</li>
  * </ul>
  */
-class errorCode
+class ErrorCode
 {
 	public static $OK = 0;
 	public static $IllegalAesKey = -41001;
