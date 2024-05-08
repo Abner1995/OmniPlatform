@@ -27,8 +27,8 @@ class Login implements AbstractLogin
         $Url = WeChatMiniProgramURLs::JSCODE2SESSION_URL;
         $return = $this->httpClient->sendPostRequest($Url, $params);
         // print_r($return);die;
-        if (isset($return['errcode']) && $return['errcode'] == 0) {
-            return ['code' => 1, 'msg' => '获取成功', 'data' => $return['data']];
+        if (!empty($return['openid'])) {
+            return ['code' => 1, 'msg' => '获取成功', 'data' => $return];
         } else {
             $msg = '错误码：' . (isset($return['errcode']) ? $return['errcode'] : '未知错误') . '，错误信息：' . (!empty($return['errmsg']) ? $return['errmsg'] : '获取失败');
             return ['code' => 0, 'msg' => $msg, 'data' => !empty($return['data']) ? $return['data'] : []];
