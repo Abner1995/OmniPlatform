@@ -1,9 +1,6 @@
 <?php
 namespace Abner\Omniplatform\Platform\MiniProgram;
 
-use Abner\Omniplatform\Douyin\MiniProgram\Login\AbstractLogin;
-
-
 abstract class AbstractApplication
 {
     protected $config;
@@ -13,5 +10,5 @@ abstract class AbstractApplication
         $this->config = $config;
     }
 
-    abstract public function getLoginService(): AbstractLogin;
+    abstract public function getLoginService();
 }

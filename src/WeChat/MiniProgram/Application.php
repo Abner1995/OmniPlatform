@@ -1,8 +1,7 @@
 <?php
-namespace Abner\Omniplatform\Douyin\MiniProgram;
+namespace Abner\Omniplatform\WeChat\MiniProgram;
 
-
-use Abner\Omniplatform\Douyin\MiniProgram\Login\Login;
+use Abner\Omniplatform\WeChat\MiniProgram\Login\Login;
 use Abner\Omniplatform\Platform\MiniProgram\AbstractApplication;
 
 class Application extends AbstractApplication

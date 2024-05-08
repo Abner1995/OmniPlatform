@@ -1,8 +1,8 @@
 <?php
-namespace Abner\Omniplatform\Douyin\MiniProgram\Login;
+namespace Abner\Omniplatform\WeChat\MiniProgram\Login;
 
 use Abner\Omniplatform\Common\Http\HttpClientService;
-use Abner\Omniplatform\Common\Url\DouYin\MiniProgram\DouYinMiniProgramURLs;
+use Abner\Omniplatform\Common\Url\WeChat\MiniProgram\WeChatMiniProgramURLs;
 
 class Login implements AbstractLogin
 {
@@ -24,13 +24,13 @@ class Login implements AbstractLogin
             'js_code' => $code,
             'grant_type' => 'authorization_code',
         ];
-        // $Url = DouYinMiniProgramURLs::JSCODE2SESSION_URL;
-        $Url = DouYinMiniProgramURLs::JSCODE2SESSION_sandbox_URL;
+        $Url = WeChatMiniProgramURLs::JSCODE2SESSION_URL;
         $return = $this->httpClient->sendPostRequest($Url, $params);
-        if (isset($return['err_no']) && $return['err_no'] == 0) {
+        // print_r($return);die;
+        if (isset($return['errcode']) && $return['errcode'] == 0) {
             return ['code' => 1, 'msg' => '获取成功', 'data' => $return['data']];
         } else {
-            $msg = '错误码：' . (isset($return['err_no']) ? $return['err_no'] : '-1') . '，错误信息：' . (!empty($return['err_tips']) ? $return['err_tips'] : '获取失败');
+            $msg = '错误码：' . (isset($return['errcode']) ? $return['errcode'] : '未知错误') . '，错误信息：' . (!empty($return['errmsg']) ? $return['errmsg'] : '获取失败');
             return ['code' => 0, 'msg' => $msg, 'data' => !empty($return['data']) ? $return['data'] : []];
         }
     }

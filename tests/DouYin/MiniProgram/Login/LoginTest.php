@@ -8,10 +8,10 @@ class LoginTest extends TestCase
 {
     public function testIndex()
     {
-        $app = Factory::make('DouYin', [
+        $app = Factory::make('WeChat', [
             'app_id' => 'app_id',
             'app_secret' => 'app_secret',
         ]);
-        $app->getLoginService()->login(1);
+        return $app->getLoginService()->login(1);
     }
 }
