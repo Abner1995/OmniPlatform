@@ -1,5 +1,5 @@
 <?php
-namespace Abner\Omniplatform\Platform\MiniProgram;
+namespace Abner\Omniplatform\Platform;
 
 abstract class AbstractApplication
 {
@@ -9,6 +9,4 @@ abstract class AbstractApplication
     {
         $this->config = $config;
     }
-
-    abstract public function getLoginService();
 }

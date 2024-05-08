@@ -3,7 +3,7 @@ namespace Abner\Omniplatform\Douyin\MiniProgram;
 
 
 use Abner\Omniplatform\Douyin\MiniProgram\Login\Login;
-use Abner\Omniplatform\Platform\MiniProgram\AbstractApplication;
+use Abner\Omniplatform\Platform\AbstractApplication;
 
 class Application extends AbstractApplication
 {

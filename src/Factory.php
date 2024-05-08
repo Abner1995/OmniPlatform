@@ -10,9 +10,10 @@ namespace Abner\Omniplatform;
 
 class Factory
 {
-    public static function make(string $platform, array $config)
+    public static function make(string $platform, string $module, array $config)
     {
-        $applicationClass = "\\Abner\\Omniplatform\\{$platform}\\MiniProgram\\Application";
+
+        $applicationClass = "\\Abner\\Omniplatform\\{$platform}\\{$module}\\Application";
         return new $applicationClass($config);
     }
 }

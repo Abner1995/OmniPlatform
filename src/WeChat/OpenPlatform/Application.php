@@ -1,7 +1,7 @@
 <?php
-namespace Abner\Omniplatform\WeChat\MiniProgram;
+namespace Abner\Omniplatform\WeChat\OpenPlatform;
 
-use Abner\Omniplatform\WeChat\MiniProgram\Login\Login;
+use Abner\Omniplatform\WeChat\OpenPlatform\Auth\Token;
 use Abner\Omniplatform\Platform\AbstractApplication;
 
 class Application extends AbstractApplication
@@ -11,8 +11,8 @@ class Application extends AbstractApplication
         parent::__construct($config);
     }
     
-    public function getLoginService()
+    public function getTokenService()
     {
-        return new Login($this->config);
+        return new Token($this->config);
     }
 }
