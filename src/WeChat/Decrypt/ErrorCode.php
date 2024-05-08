@@ -1,7 +1,7 @@
 <?php
 namespace Abner\Omniplatform\WeChat\Decrypt;
 /**
- * error code 说明.
+ * error code errorCode说明.
  * <ul>
 
  *    <li>-41001: encodingAesKey 非法</li>
