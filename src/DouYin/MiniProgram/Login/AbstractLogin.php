@@ -3,5 +3,5 @@ namespace Abner\Omniplatform\Douyin\MiniProgram\Login;
 
 interface AbstractLogin
 {
-    public function login($code);
+    public function login($code, $anonymous_code = '');
 }

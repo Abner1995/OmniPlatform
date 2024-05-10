@@ -15,17 +15,16 @@ class Login implements AbstractLogin
         $this->httpClient = new HttpClientService();
     }
 
-    public function login($code)
+    public function login($code, $anonymous_code = '')
     {
         if (empty($code)) return ['code' => 0, 'msg' => 'code不能为空'];
         $params = [
             'appid' => $this->config['app_id'],
             'secret' => $this->config['app_secret'],
-            'js_code' => $code,
-            'grant_type' => 'authorization_code',
+            'code' => $code,
+            'anonymous_code' => $anonymous_code,
         ];
-        // $Url = DouYinMiniProgramURLs::JSCODE2SESSION_URL;
-        $Url = DouYinMiniProgramURLs::JSCODE2SESSION_sandbox_URL;
+        $Url = DouYinMiniProgramURLs::JSCODE2SESSION_URL;
         $return = $this->httpClient->sendPostRequest($Url, $params);
         if (isset($return['err_no']) && $return['err_no'] == 0) {
             return ['code' => 1, 'msg' => '获取成功', 'data' => $return['data']];

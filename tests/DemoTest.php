@@ -11,18 +11,24 @@ class DemoTest extends TestCase
         echo "\r\n";
         echo "微信小程序";
         echo "\r\n";
-        // 微信小程序
+        // // 微信小程序
         $app = Factory::make('WeChat', 'MiniProgram', []);
         $a = $app->getLoginService()->login(0);
         print_r($a);
         echo "\r\n";
-        echo "微信开发平台";
+        // echo "微信开发平台";
+        // echo "\r\n";
+        // // 微信开发平台
+        // $app = Factory::make('WeChat', 'OpenPlatform', []);
+        // // $a = $app->getTokenService()->accessToken(0);
+        // $a = $app->getTokenService()->userinfo(0, 0);
+        // print_r($a);
+        // echo "\r\n";
+        // echo "抖音小程序";
         echo "\r\n";
-        // 微信开发平台
-        $app = Factory::make('WeChat', 'OpenPlatform', []);
-        // $a = $app->getTokenService()->accessToken(0);
-        $a = $app->getTokenService()->userinfo(0, 0);
+        // 抖音小程序
+        $app = Factory::make('Douyin', 'MiniProgram', []);
+        $a = $app->getLoginService()->login(0, 0);
         print_r($a);
-        echo "\r\n";
     }
 }
