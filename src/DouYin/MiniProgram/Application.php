@@ -1,8 +1,8 @@
 <?php
-namespace Abner\Omniplatform\Douyin\MiniProgram;
+namespace Abner\Omniplatform\DouYin\MiniProgram;
 
 use Abner\Omniplatform\Platform\AbstractApplication;
-use Abner\Omniplatform\Douyin\MiniProgram\Login\Login;
+use Abner\Omniplatform\DouYin\MiniProgram\Login\Login;
 
 class Application extends AbstractApplication
 {

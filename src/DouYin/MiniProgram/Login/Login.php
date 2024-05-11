@@ -1,5 +1,5 @@
 <?php
-namespace Abner\Omniplatform\Douyin\MiniProgram\Login;
+namespace Abner\Omniplatform\DouYin\MiniProgram\Login;
 
 use Abner\Omniplatform\Common\Http\HttpClientService;
 use Abner\Omniplatform\Common\Url\DouYin\MiniProgram\DouYinMiniProgramURLs;
