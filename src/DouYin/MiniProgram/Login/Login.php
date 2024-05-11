@@ -25,7 +25,7 @@ class Login
             'anonymous_code' => $anonymous_code,
         ];
         $Url = DouYinMiniProgramURLs::JSCODE2SESSION_URL;
-        $return = $this->httpClient->sendPostRequest($Url, $params);
+        $return = $this->httpClient->sendRequestWithCustomContentType($Url, $params);
         if (isset($return['err_no']) && $return['err_no'] == 0) {
             return ['code' => 1, 'msg' => '获取成功', 'data' => $return['data']];
         } else {
