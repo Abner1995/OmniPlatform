@@ -4,7 +4,7 @@ namespace Abner\Omniplatform\WeChat\MiniProgram\Login;
 use Abner\Omniplatform\Common\Http\HttpClientService;
 use Abner\Omniplatform\Common\Url\WeChat\MiniProgram\WeChatMiniProgramURLs;
 
-class Login implements AbstractLogin
+class Login
 {
     private $config;
     private $httpClient;
@@ -15,14 +15,14 @@ class Login implements AbstractLogin
         $this->httpClient = new HttpClientService();
     }
 
-    public function login($code)
+    public function login($code, $grant_type = 'authorization_code')
     {
         if (empty($code)) return ['code' => 0, 'msg' => 'code不能为空'];
         $params = [
             'appid' => $this->config['app_id'],
             'secret' => $this->config['app_secret'],
             'js_code' => $code,
-            'grant_type' => 'authorization_code',
+            'grant_type' => $grant_type,
         ];
         $Url = WeChatMiniProgramURLs::JSCODE2SESSION_URL;
         $return = $this->httpClient->sendPostRequest($Url, $params);

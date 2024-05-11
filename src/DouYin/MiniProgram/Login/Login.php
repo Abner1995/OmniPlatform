@@ -4,7 +4,7 @@ namespace Abner\Omniplatform\Douyin\MiniProgram\Login;
 use Abner\Omniplatform\Common\Http\HttpClientService;
 use Abner\Omniplatform\Common\Url\DouYin\MiniProgram\DouYinMiniProgramURLs;
 
-class Login implements AbstractLogin
+class Login
 {
     private $config;
     private $httpClient;
