@@ -37,14 +37,14 @@ class HttpClientService
             $headers = [
                 'Content-Type' => $this->ContentType,
             ];
+            if (!empty($this->accessToken)) {
+                $headers[$this->accessTokenKey] = $this->accessToken;
+            }
             $options = [];
             if ($this->ContentType == ContentType::application_json) {
                 $options['headers'] = $headers;
                 $data = json_encode($data);
                 $options['body'] = $data;
-                if (!empty($this->accessToken)) {
-                    $options[$this->accessTokenKey] = $this->accessToken;
-                }
             } elseif ($this->ContentType == ContentType::application_urlencoded) {
                 $options['headers'] = $headers;
                 if ($this->isAddUrlParams) {
@@ -55,7 +55,11 @@ class HttpClientService
                 }
             }
             $response = $this->client->request('POST', $url, $options);
-            return json_decode($response->getBody(), true);
+            if (!empty($response)) {
+                return json_decode($response->getBody(), true);
+            } else {
+                return ['code' => 0, 'msg' => '请求失败'];
+            }
         } catch (GuzzleException $e) {
             return ['code' => 0, 'msg' => $e->getMessage()];
         }
