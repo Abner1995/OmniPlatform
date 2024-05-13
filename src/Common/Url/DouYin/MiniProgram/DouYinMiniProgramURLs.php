@@ -32,15 +32,15 @@ class DouYinMiniProgramURLs
     const business_refresh_token_URL = 'https://open.douyin.com/oauth/refresh_biz_token';
     const business_scopes_URL = 'https://open.douyin.com/oauth/business_scopes';
 
-    const notify_user_URL = 'https://open.douyin.com/api/notification/v2/subscription/notify_user';
+    const notify_user_URL = 'https://open.douyin.com/api/notification/v2/subscription/notify_user/';
 
-    const generate_schema_URL = 'https://open.douyin.com/api/apps/v1/url/generate_schema';
-    const query_schema_URL = 'https://open.douyin.com/api/apps/v1/url/query_schema';
-    const query_schema_quota_URL = 'https://open.douyin.com/api/apps/v1/url/query_schema_quota';
+    const generate_schema_URL = 'https://open.douyin.com/api/apps/v1/url/generate_schema/';
+    const query_schema_URL = 'https://open.douyin.com/api/apps/v1/url/query_schema/';
+    const query_schema_quota_URL = 'https://open.douyin.com/api/apps/v1/url/query_schema_quota/';
 
-    const generate_url_link_URL = 'https://open.douyin.com/api/apps/v1/url_link/generate';
-    const query_url_link_URL = 'https://open.douyin.com/api/apps/v1/url_link/query_info';
-    const query_url_link_quota_URL = 'https://open.douyin.com/api/apps/v1/url_link/query_quota';
+    const generate_url_link_URL = 'https://open.douyin.com/api/apps/v1/url_link/generate/';
+    const query_url_link_URL = 'https://open.douyin.com/api/apps/v1/url_link/query_info/';
+    const query_url_link_quota_URL = 'https://open.douyin.com/api/apps/v1/url_link/query_quota/';
 
-    const create_qrcode_URL = 'https://open.douyin.com/api/apps/v1/qrcode/create';
+    const create_qrcode_URL = 'https://open.douyin.com/api/apps/v1/qrcode/create/';
 }
