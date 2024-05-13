@@ -1,15 +1,19 @@
 <?php
-
 namespace Abner\Omniplatform\Common\Http;
 
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
+use Abner\Omniplatform\Common\Config\Platform;
+use Abner\Omniplatform\Common\Config\AccessTokenKey;
 
 class HttpClientService
 {
     private $client;
     private $verify = false;
-    private $ContentType = 'application/json';
+    private $accessToken = '';
+    private $accessTokenKey = '';
+    private $isAddUrlParams = true;
+    private $ContentType = ContentType::application_json;
 
     public function __construct()
     {
@@ -33,13 +37,24 @@ class HttpClientService
             $headers = [
                 'Content-Type' => $this->ContentType,
             ];
-            if ($this->ContentType == 'application/json') {
+            $options = [];
+            if ($this->ContentType == ContentType::application_json) {
+                $options['headers'] = $headers;
                 $data = json_encode($data);
+                $options['body'] = $data;
+                if (!empty($this->accessToken)) {
+                    $options[$this->accessTokenKey] = $this->accessToken;
+                }
+            } elseif ($this->ContentType == ContentType::application_urlencoded) {
+                $options['headers'] = $headers;
+                if ($this->isAddUrlParams) {
+                    $queryString = http_build_query($data);
+                    $url = $queryString ? $url . (stripos($url, "?") !== false ? "&" : "?") . $queryString : $url;
+                } else {
+                    $options['form_params'] = $data;
+                }
             }
-            $response = $this->client->request('POST', $url, [
-                'headers' => $headers,
-                'body' => $data,
-            ]);
+            $response = $this->client->request('POST', $url, $options);
             return json_decode($response->getBody(), true);
         } catch (GuzzleException $e) {
             return ['code' => 0, 'msg' => $e->getMessage()];
@@ -88,5 +103,17 @@ class HttpClientService
     public function setContentType($ContentType)
     {
         $this->ContentType = $ContentType;
+    }
+
+    public function setIsAddUrlParams($isAddUrlParams)
+    {
+        $this->isAddUrlParams = $isAddUrlParams;
+    }
+
+    public function setAccessToken($accessToken, $platform = Platform::DouYinMiniProgram)
+    {
+        $this->accessToken = $accessToken;
+        $platformArr = AccessTokenKey::AccessTokenKeys();
+        $this->accessTokenKey = isset($platformArr[$platform]) ? $platformArr[$platform] : AccessTokenKey::CommonAccessTokenKey;
     }
 }
