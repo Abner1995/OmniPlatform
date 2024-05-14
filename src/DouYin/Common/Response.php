@@ -22,12 +22,14 @@ class Response
             if (isset($return['err_no'])) {
                 $err_no = $return['err_no'];
             }
+            if (isset($return['data']['error_code'])) {
+                $err_no = $return['data']['error_code'];
+            }
             if (isset($return['err_tips'])) {
                 $err_tips = $return['err_tips'];
             }
-            // 兼容抖音获取应用授权调用凭证
-            if (isset($return['data']['error_code'])) {
-                $err_no = $return['data']['error_code'];
+            if (isset($return['err_msg'])) {
+                $err_tips = $return['err_msg'];
             }
             if (isset($return['data']['description'])) {
                 $err_tips = $return['data']['description'];
