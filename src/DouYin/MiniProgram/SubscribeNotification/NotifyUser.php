@@ -23,7 +23,6 @@ class NotifyUser
             return ['code' => 0, 'msg' => '消息id或不能为空'];
         }
         $Url = DouYinMiniProgramURLs::notify_user_URL;
-        $this->httpClient->setAccessToken($this->config['accessToken']);
         return $this->sendRequest($Url, $params);
     }
 

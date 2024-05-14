@@ -1,6 +1,7 @@
 <?php
 namespace Abner\Omniplatform\DouYin\MiniProgram;
 
+use Abner\Omniplatform\DouYin\MiniProgram\Pay\Pay;
 use Abner\Omniplatform\Platform\AbstractApplication;
 use Abner\Omniplatform\DouYin\MiniProgram\Login\Login;
 use Abner\Omniplatform\DouYin\MiniProgram\Auth\UserToken;
@@ -44,5 +45,10 @@ class Application extends AbstractApplication
     public function getUrlQrcodeService()
     {
         return new UrlQrcode($this->config);
+    }
+
+    public function getPayService()
+    {
+        return new Pay($this->config);
     }
 }

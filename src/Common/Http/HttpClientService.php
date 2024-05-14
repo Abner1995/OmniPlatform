@@ -4,15 +4,20 @@ namespace Abner\Omniplatform\Common\Http;
 use GuzzleHttp\Client;
 use GuzzleHttp\Exception\GuzzleException;
 use Abner\Omniplatform\Common\Config\Platform;
+use Abner\Omniplatform\DouYin\Common\APIVersion;
 use Abner\Omniplatform\Common\Config\AccessTokenKey;
+use Abner\Omniplatform\Common\Config\AuthorizationKey;
 
 class HttpClientService
 {
     private $client;
+    private $platform = '';
     private $verify = false;
     private $accessToken = '';
     private $accessTokenKey = '';
     private $isAddUrlParams = true;
+    private $ByteAuthorization = '';
+    private $ByteAuthorizationKey = '';
     private $ContentType = ContentType::application_json;
 
     public function __construct()
@@ -39,6 +44,9 @@ class HttpClientService
             ];
             if (!empty($this->accessToken)) {
                 $headers[$this->accessTokenKey] = $this->accessToken;
+            }
+            if (!empty($this->ByteAuthorization)) {
+                $headers[$this->ByteAuthorizationKey] = $this->ByteAuthorization;
             }
             $options = [];
             if ($this->ContentType == ContentType::application_json) {
@@ -119,5 +127,17 @@ class HttpClientService
         $this->accessToken = $accessToken;
         $platformArr = AccessTokenKey::AccessTokenKeys();
         $this->accessTokenKey = isset($platformArr[$platform]) ? $platformArr[$platform] : AccessTokenKey::CommonAccessTokenKey;
+    }
+
+    public function setPlatform($platform)
+    {
+        $this->platform = $platform;
+    }
+
+    public function setByteAuthorization($config, $sign, $timestamp, $str, $version = APIVersion::MINIPROGRAM_VERSION_2)
+    {
+        $this->ByteAuthorization = 'SHA256-RSA2048 appid="' . $config['app_id'] . '",nonce_str=' . $str . ',timestamp="' . $timestamp . '",key_version="' . $version . '",signature="' . $sign . '"';
+        $platformArr = AuthorizationKey::AuthorizationKeys();
+        $this->ByteAuthorizationKey = isset($platformArr[$this->platform]) ? $platformArr[$this->platform] : AuthorizationKey::CommonAuthorizationKey;
     }
 }

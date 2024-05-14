@@ -43,4 +43,16 @@ class DouYinMiniProgramURLs
     const query_url_link_quota_URL = 'https://open.douyin.com/api/apps/v1/url_link/query_quota/';
 
     const create_qrcode_URL = 'https://open.douyin.com/api/apps/v1/qrcode/create/';
+
+    const create_order_URL = '/api/apps/trade/v2/order/create_order';
+    const create_order_full_URL = 'https://open.douyin.com/api/apps/trade/v2/order/create_order';
+    const query_order_URL = '/api/apps/trade/v2/order/query_order';
+    const query_order_full_URL = 'https://open.douyin.com/api/apps/trade/v2/order/query_order';
+
+    const create_refund_URL = '/api/apps/trade/v2/refund/create_refund';
+    const create_refund_full_URL = 'https://open.douyin.com/api/apps/trade/v2/refund/create_refund';
+    const audit_refund_URL = '/api/apps/trade/v2/refund/merchant_audit_callback';
+    const audit_refund_full_URL = 'https://open.douyin.com/api/apps/trade/v2/refund/merchant_audit_callback';
+    const query_refund_URL = '/api/apps/trade/v2/refund/query_refund';
+    const query_refund_full_URL = 'https://open.douyin.com/api/apps/trade/v2/refund/query_refund';
 }
