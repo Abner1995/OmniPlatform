@@ -3,6 +3,7 @@ namespace Abner\Omniplatform\Tests;
 
 use Abner\Omniplatform\Factory;
 use PHPUnit\Framework\TestCase;
+use Abner\Omniplatform\Common\Http\HttpClientService;
 
 /**
  * 测试案例  
@@ -13,6 +14,26 @@ use PHPUnit\Framework\TestCase;
  */
 class DemoTest extends TestCase
 {
+
+    public function testHttpClient()
+    {
+        $config = [
+            'appid' => 'xxxx',
+            'secret' => 'xxxx',
+            'log' => [
+                'name' => 'omniplatform',
+                'level' => 'debug',
+                'file' => './wechat' . date("Y-m-d") . '.log',
+            ]
+        ];
+        $httpClient = new HttpClientService($config);
+        $return = $httpClient->sendPostRequest('https://aichongchong.com/api/wanlshop/user/login', [
+            'a'=>1,
+            'n'=>1,
+        ]);
+        print_r($return);die;
+    }
+
     /**
      * 测试微信小程序
      * @return array
@@ -27,12 +48,17 @@ class DemoTest extends TestCase
         $config = [
             'appid' => 'xxxx',
             'secret' => 'xxxx',
+            'log' => [
+                'name' => 'omniplatform',
+                'level' => 'debug',
+                'file' => './wechat.log',
+            ]
         ];
         $app = Factory::make('WeChat', 'MiniProgram', $config);
         // Token操作
         $code = 0;
         $grant_type = 'authorization_code';
-        $return = $app->getLoginService()->login($code, $grant_type);
+        $return = $app->getLoginService($config)->login($code, $grant_type);
         print_r($return);
         echo "\r\n";
     }

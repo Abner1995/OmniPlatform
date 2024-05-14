@@ -1,7 +1,11 @@
 <?php
 namespace Abner\Omniplatform\Common\Http;
 
+use Monolog\Logger;
 use GuzzleHttp\Client;
+use GuzzleHttp\Middleware;
+use GuzzleHttp\HandlerStack;
+use Monolog\Handler\StreamHandler;
 use GuzzleHttp\Exception\GuzzleException;
 use Abner\Omniplatform\Common\Config\Platform;
 use Abner\Omniplatform\DouYin\Common\APIVersion;
@@ -11,6 +15,7 @@ use Abner\Omniplatform\Common\Config\AuthorizationKey;
 class HttpClientService
 {
     private $client;
+    private $config = [];
     private $platform = '';
     private $verify = false;
     private $accessToken = '';
@@ -20,12 +25,16 @@ class HttpClientService
     private $ByteAuthorizationKey = '';
     private $ContentType = ContentType::application_json;
 
-    public function __construct()
+    public function __construct($config = [])
     {
-        $config = [
-            'verify' => $this->verify,
-        ];
-        $this->client = new Client($config);
+        $this->config = array_merge($this->config, $config);
+        $stack = $this->setHandler();
+        $configClient = [];
+        $configClient['verify'] = $this->verify;
+        if (!empty($stack)) {
+            $configClient['handler'] = $stack;
+        }
+        $this->client = new Client($configClient);
     }
 
     /**
@@ -84,7 +93,11 @@ class HttpClientService
     {
         try {
             $response = $this->client->request('POST', $url, ['form_params' => $data]);
-            return json_decode($response->getBody(), true);
+            if (!empty($response)) {
+                return json_decode($response->getBody(), true);
+            } else {
+                return ['code' => 0, 'msg' => '请求失败'];
+            }
         } catch (GuzzleException $e) {
             return ['code' => 0, 'msg' => $e->getMessage()];
         }
@@ -101,7 +114,11 @@ class HttpClientService
     {
         try {
             $response = $this->client->request('GET', $url, ['form_params' => $data]);
-            return json_decode($response->getBody(), true);
+            if (!empty($response)) {
+                return json_decode($response->getBody(), true);
+            } else {
+                return ['code' => 0, 'msg' => '请求失败'];
+            }
         } catch (GuzzleException $e) {
             return ['code' => 0, 'msg' => $e->getMessage()];
         }
@@ -139,5 +156,27 @@ class HttpClientService
         $this->ByteAuthorization = 'SHA256-RSA2048 appid="' . $config['app_id'] . '",nonce_str=' . $str . ',timestamp="' . $timestamp . '",key_version="' . $version . '",signature="' . $sign . '"';
         $platformArr = AuthorizationKey::AuthorizationKeys();
         $this->ByteAuthorizationKey = isset($platformArr[$this->platform]) ? $platformArr[$this->platform] : AuthorizationKey::CommonAuthorizationKey;
+    }
+
+    private function setHandler()
+    {
+        if (!empty($this->config['log'])) {
+            $logPath = isset($this->config['log']['file']) ? $this->config['log']['file'] : '';
+            if (!empty($this->config['log']) && !empty($logPath)) {
+                $name = isset($this->config['log']['name']) ? $this->config['log']['name'] : 'guzzle';
+                $logLevel = isset($this->config['log']['level']) ? $this->config['log']['level'] : 'info';
+                $logLevel = strtoupper($logLevel);
+                $log = new Logger($name);
+                $log->pushHandler(new StreamHandler($logPath, $logLevel));
+                $stack = HandlerStack::create();
+                // '{req_headers} - {req_body} - {res_headers} - {res_body}'
+                $stack->push(Middleware::log(
+                    $log,
+                    new \GuzzleHttp\MessageFormatter('{req_body} - {res_body}')
+                ));
+                return $stack;
+            }
+        }
+        return false;
     }
 }
