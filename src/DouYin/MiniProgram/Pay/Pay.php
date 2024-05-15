@@ -55,7 +55,7 @@ class Pay
         if (empty($params['order_entry_schema']['path'])) {
             return ['code' => 0, 'msg' => '退款单的跳转的 schema不能为空'];
         }
-        $this->sendRequest(HttpMethod::POST_METHOD, DouYinMiniProgramURLs::create_order_full_URL, DouYinMiniProgramURLs::create_order_URL, $params);
+        return $this->sendRequest(HttpMethod::POST_METHOD, DouYinMiniProgramURLs::create_order_full_URL, DouYinMiniProgramURLs::create_order_URL, $params);
     }
 
     /**
@@ -72,7 +72,7 @@ class Pay
         if (empty($params['order_id']) && empty($params['out_order_no'])) {
             return ['code' => 0, 'msg' => '参数不能为空'];
         }
-        $this->sendRequest(HttpMethod::POST_METHOD, DouYinMiniProgramURLs::query_order_full_URL, DouYinMiniProgramURLs::query_order_URL, $params);
+        return $this->sendRequest(HttpMethod::POST_METHOD, DouYinMiniProgramURLs::query_order_full_URL, DouYinMiniProgramURLs::query_order_URL, $params);
     }
 
     /**
@@ -103,7 +103,7 @@ class Pay
         if (empty($params['item_order_detail']['item_order_id'])) {
             return ['code' => 0, 'msg' => '商品单信息不能为空'];
         }
-        $this->sendRequest(HttpMethod::POST_METHOD, DouYinMiniProgramURLs::create_refund_full_URL, DouYinMiniProgramURLs::create_refund_URL, $params);
+        return $this->sendRequest(HttpMethod::POST_METHOD, DouYinMiniProgramURLs::create_refund_full_URL, DouYinMiniProgramURLs::create_refund_URL, $params);
     }
 
     /**
@@ -118,7 +118,7 @@ class Pay
      */  
     public function queryRefund($params = [])
     {
-        $this->sendRequest(HttpMethod::POST_METHOD, DouYinMiniProgramURLs::query_refund_full_URL, DouYinMiniProgramURLs::query_refund_URL, $params);
+        return $this->sendRequest(HttpMethod::POST_METHOD, DouYinMiniProgramURLs::query_refund_full_URL, DouYinMiniProgramURLs::query_refund_URL, $params);
     }
 
     /**
@@ -132,7 +132,7 @@ class Pay
      */  
     public function auditRefund($params = [])
     {
-        $this->sendRequest(HttpMethod::POST_METHOD, DouYinMiniProgramURLs::audit_refund_full_URL, DouYinMiniProgramURLs::audit_refund_URL, $params);
+        return $this->sendRequest(HttpMethod::POST_METHOD, DouYinMiniProgramURLs::audit_refund_full_URL, DouYinMiniProgramURLs::audit_refund_URL, $params);
     }
 
     public function verify($http_body, $timestamp, $nonce_str, $sign)
