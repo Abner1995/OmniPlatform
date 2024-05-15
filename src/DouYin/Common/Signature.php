@@ -53,26 +53,94 @@ class Signature
         return $result;
     }
 
-    public function sign(array $map, $salt)
+    /**
+     * 签名
+     * @param array $map
+     * @param string $salt
+     * @return string
+     * @author: zuoyi <wan19950504@outlook.com>
+     * @Date: 2024-05-15 13:56:07
+     */    
+    public static function sign(array $map, $salt)
     {
-        $rList = array();
+        $rList = [];
         foreach ($map as $k => $v) {
-            if ($k == "other_settle_params" || $k == "app_id" || $k == "sign" || $k == "thirdparty_id") {
-                continue;
-            }
+            if ($k == "other_settle_params" || $k == "app_id" || $k == "sign" || $k == "thirdparty_id")
+            continue;
+
             $value = trim(strval($v));
+            if (is_array($v)) {
+                $value = self::arrayToStr($v);
+            }
+
             $len = strlen($value);
-            if ($len > 1 && substr($value, 0, 1) == "\"" && substr($value, $len, $len - 1) == "\"") {
+            if ($len > 1 && substr($value, 0, 1) == "\"" && substr($value, $len - 1) == "\"")
                 $value = substr($value, 1, $len - 1);
-            }
             $value = trim($value);
-            if ($value == "" || $value == "null") {
+            if ($value == "" || $value == "null")
                 continue;
-            }
-            array_push($rList, $value);
+            $rList[] = $value;
         }
-        array_push($rList, $salt);
-        sort($rList, 2);
+        $rList[] = $salt;
+        sort($rList, SORT_STRING);
         return md5(implode('&', $rList));
+    }
+
+    /**
+     * 将数组转换为字符串表示形式。
+     * @param array $map 要转换的数组或关联数组。
+     * @return string 返回表示数组的字符串。对于关联数组，将按照键名排序，并以“map[键名:值 空格]”的格式表示；
+     * 对于普通数组，则以“[值 空格]”的格式表示其元素。
+     */
+    public static function arrayToStr($map)
+    {
+        $isMap = self::isArrMap($map);
+        $result = "";
+        if ($isMap) {
+            $result = "map[";
+        }
+        $keyArr = array_keys($map);
+        if ($isMap) {
+            sort($keyArr);
+        }
+        $paramsArr = array();
+        foreach ($keyArr as  $k) {
+            $v = $map[$k];
+            if ($isMap) {
+                if (is_array($v)) {
+                    $paramsArr[] = sprintf("%s:%s", $k, self::arrayToStr($v));
+                } else {
+                    $paramsArr[] = sprintf("%s:%s", $k, trim(strval($v)));
+                }
+            } else {
+                if (is_array($v)) {
+                    $paramsArr[] = self::arrayToStr($v);
+                } else {
+                    $paramsArr[] = trim(strval($v));
+                }
+            }
+        }
+        $result = sprintf("%s%s", $result, join(" ", $paramsArr));
+        if (!$isMap) {
+            $result = sprintf("[%s]", $result);
+        } else {
+            $result = sprintf("%s]", $result);
+        }
+        return $result;
+    }
+
+    /**
+     * 检查给定的数组是否为键为字符串的关联数组。
+     * @param array $map 要检查的数组。
+     * @return bool 如果数组中的至少一个键是字符串，则返回true；否则返回false。
+     */
+    public static function isArrMap($map)
+    {
+        foreach ($map as $k => $v) {
+            if (is_string($k)) {
+                return true;
+            }
+        }
+        return false;
     }
 }

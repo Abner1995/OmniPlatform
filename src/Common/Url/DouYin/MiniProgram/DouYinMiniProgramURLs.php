@@ -55,4 +55,14 @@ class DouYinMiniProgramURLs
     const audit_refund_full_URL = 'https://open.douyin.com/api/apps/trade/v2/refund/merchant_audit_callback';
     const query_refund_URL = '/api/apps/trade/v2/refund/query_refund';
     const query_refund_full_URL = 'https://open.douyin.com/api/apps/trade/v2/refund/query_refund';
+
+    const ecpay_create_order_URL = '/api/apps/ecpay/v1/create_order';
+    const ecpay_create_order_full_URL = 'https://developer.toutiao.com/api/apps/ecpay/v1/create_order';
+    const ecpay_query_order_URL = '/api/apps/ecpay/v1/query_order';
+    const ecpay_query_order_full_URL = 'https://developer.toutiao.com/api/apps/ecpay/v1/query_order';
+
+    const ecpay_create_refund_URL = '/api/apps/ecpay/v1/create_refund';
+    const ecpay_create_refund_full_URL = 'https://developer.toutiao.com/api/apps/ecpay/v1/create_refund';
+    const ecpay_query_refund_URL = '/api/apps/ecpay/v1/query_refund';
+    const ecpay_query_refund_full_URL = 'https://developer.toutiao.com/api/apps/ecpay/v1/query_refund';
 }
