@@ -139,7 +139,7 @@ class Pay
                 $order['timestamp'],
                 $order['nonce'],
                 json_encode($order['msg']),
-                $this->config['accessToken'],
+                $this->config['token'],
             ];
             sort($data, SORT_STRING);
             $str = implode('', $data);

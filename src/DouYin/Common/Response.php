@@ -28,6 +28,9 @@ class Response
             if (isset($return['err_tips'])) {
                 $err_tips = $return['err_tips'];
             }
+            if (isset($return['msg'])) {
+                $err_tips = $return['msg'];
+            }
             if (isset($return['err_msg'])) {
                 $err_tips = $return['err_msg'];
             }
