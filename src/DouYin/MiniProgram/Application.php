@@ -47,8 +47,11 @@ class Application extends AbstractApplication
         return new UrlQrcode($this->config);
     }
 
-    public function getPayService()
+    public function getPayService($config = [])
     {
-        return new Pay($this->config);
+        if (!empty($config)) {
+            $newconfig = array_merge($this->config, $config);
+        }
+        return new Pay($newconfig);
     }
 }

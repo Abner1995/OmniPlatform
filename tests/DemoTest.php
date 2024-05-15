@@ -105,7 +105,12 @@ class DemoTest extends TestCase
         // Token操作
         $code = 0;
         $grant_type = 'authorization_code';
-        $return = $app->getLoginService()->login($code, $grant_type);
+        // $return = $app->getLoginService()->login($code, $grant_type);
+        $pconfig = [
+            'test' => 'xxxx',
+            'test99' => 'xxxx',
+        ];
+        $return = $app->getPayService($pconfig)->Pay($config);
         print_r($return);
         echo "\r\n";
     }
