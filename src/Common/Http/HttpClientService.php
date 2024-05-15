@@ -172,7 +172,7 @@ class HttpClientService
                 // '{req_headers} - {req_body} - {res_headers} - {res_body}'
                 $stack->push(Middleware::log(
                     $log,
-                    new \GuzzleHttp\MessageFormatter('{req_body} - {res_body}')
+                    new \GuzzleHttp\MessageFormatter('{req_headers} - {req_body} - {res_headers} - {res_body}')
                 ));
                 return $stack;
             }

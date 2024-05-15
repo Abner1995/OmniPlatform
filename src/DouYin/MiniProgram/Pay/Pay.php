@@ -16,7 +16,7 @@ class Pay
     public function __construct(array $config)
     {
         $this->config = $config;
-        $this->httpClient = new HttpClientService();
+        $this->httpClient = new HttpClientService($config);
     }
 
     /**
