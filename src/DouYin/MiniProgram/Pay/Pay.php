@@ -1,8 +1,7 @@
 <?php
 namespace Abner\Omniplatform\DouYin\MiniProgram\Pay;
 
-use Abner\Omniplatform\Common\Config\Platform;
-use Abner\Omniplatform\Common\Http\HttpMethod;
+use Abner\Omniplatform\Common\Log\Log;
 use Abner\Omniplatform\DouYin\Common\Response;
 use Abner\Omniplatform\DouYin\Common\Signature;
 use Abner\Omniplatform\Common\Http\HttpClientService;
@@ -128,19 +127,38 @@ class Pay
         return $this->sendRequest(DouYinMiniProgramURLs::ecpay_query_refund_full_URL, $params);
     }
 
-    public function verify($params)
+    /**
+     * 回调验证
+     * @param json|array|string $params
+     * @return array|bool
+     * @author: zuoyi <wan19950504@outlook.com>
+     * @Date: 2024-05-16 11:09:20
+     */
+    public function verify($params = '')
     {
         $result = false;
         $order = [];
         if (!empty($params)) {
-            $order = json_decode($params, true);
-            $order['msg'] = json_decode($order['msg'], true);
-            $data = [
-                $order['timestamp'],
-                $order['nonce'],
-                json_encode($order['msg']),
-                $this->config['token'],
-            ];
+            $logparams = '';
+            if (is_array(($params))) {
+                $logparams = $params;
+            }
+            Log::addLog($this->config, $logparams);
+            if (is_array(($params))) {
+                $order = $params;
+            } else {
+                $order = json_decode($params, true);
+            }
+            $data = [];
+            if (!empty($order['msg'])) {
+                $order['msg'] = json_decode($order['msg'], true);
+                $data = [
+                    $order['timestamp'],
+                    $order['nonce'],
+                    json_encode($order['msg']),
+                    $this->config['token'],
+                ];
+            } 
             sort($data, SORT_STRING);
             $str = implode('', $data);
             if (!strcmp(sha1($str), $order['msg_signature']) && !empty($order['msg_signature'])) {

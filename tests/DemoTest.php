@@ -27,7 +27,7 @@ class DemoTest extends TestCase
             ]
         ];
         $httpClient = new HttpClientService($config);
-        $return = $httpClient->sendPostRequest('https://aichongchong.com/api/wanlshop/user/login', [
+        $return = $httpClient->sendPostRequest('https://www.baidu.com', [
             'a'=>1,
             'n'=>1,
         ]);
@@ -109,8 +109,18 @@ class DemoTest extends TestCase
         $pconfig = [
             'test' => 'xxxx',
             'test99' => 'xxxx',
+            'log' => [
+                'name' => 'omniplatform',
+                'level' => 'debug',
+                'file' => './wechat' . date("Y-m-d") . '.log',
+            ]
         ];
-        $return = $app->getPayService($pconfig)->Pay($config);
+        $params = [
+            '1' => '2'
+        ];
+        $app = $app->getPayService($pconfig);
+        // $return->Pay($config);
+        $return = $app->verify($params);
         print_r($return);
         echo "\r\n";
     }
