@@ -15,7 +15,6 @@ class Log
     public static function addLog($config = [], $logparams = [])
     {
         if (!empty($config['log'])) {
-            print_r($_SERVER);die;
             $logPath = isset($config['log']['file']) ? $config['log']['file'] : '';
             if (!empty($config['log']) && !empty($logPath)) {
                 $name = isset($config['log']['name']) ? $config['log']['name'] : 'guzzle';
