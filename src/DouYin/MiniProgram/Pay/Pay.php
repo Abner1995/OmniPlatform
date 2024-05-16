@@ -139,11 +139,10 @@ class Pay
         $result = false;
         $order = [];
         if (!empty($params)) {
-            $logparams = '';
-            if (is_array(($params))) {
-                $logparams = $params;
+            $logparams = is_array(($params)) ? $params : json_decode($params, true);
+            if (!empty($logparams)) {
+                Log::addLog($this->config, $logparams);
             }
-            Log::addLog($this->config, $logparams);
             if (is_array(($params))) {
                 $order = $params;
             } else {
@@ -164,6 +163,7 @@ class Pay
             if (!strcmp(sha1($str), $order['msg_signature']) && !empty($order['msg_signature'])) {
                 $result = true;
             }
+            // return $order;
             if ($result) return $order;
         }
         return [];
