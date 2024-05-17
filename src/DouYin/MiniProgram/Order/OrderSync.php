@@ -18,6 +18,7 @@ class OrderSync
 
     /**
      * 订单同步
+     * @param string $access_token 必填 服务端 API 调用标识，通过 getAccessToken 获取
      * @param string $open_id 必填 小程序用户的 open_id
      * @param string $order_detail 必填 json string，根据不同订单类型有不同的结构体，请参见 order_detail 字段说明（json string）
      * @param string $order_detail.order_id 必填 开发者侧业务单号。用作幂等控制。该订单号是和担保支付的支付单号绑定的，也就是预下单时传入的 out_order_no 字段，长度 <= 64byte
@@ -42,14 +43,14 @@ class OrderSync
      */    
     public function push($params = [])
     {
+        if (empty($params['access_token'])) {
+            return ['code' => 0, 'msg' => 'access_token不能为空'];
+        }
         if (empty($params['open_id'])) {
             return ['code' => 0, 'msg' => 'open_id不能为空'];
         }
         if (empty($params['order_detail'])) {
             return ['code' => 0, 'msg' => 'order_detail不能为空'];
-        }
-        if (empty($params['order_detail']['item_list'])) {
-            return ['code' => 0, 'msg' => 'order_detail的item_list不能为空'];
         }
         $params['app_name'] = isset($params['app_name']) ? $params['app_name'] : 'douyin';
         $params['order_type'] = isset($params['order_type']) ? $params['order_type'] : 0;

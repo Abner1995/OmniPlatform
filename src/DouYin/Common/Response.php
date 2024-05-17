@@ -9,6 +9,10 @@ class Response
         if (isset($return['err_no']) && $return['err_no'] == 0) {
             $code = 1;
         }
+        // 兼容抖音订单同步
+        if (isset($return['err_code']) && $return['err_code'] == 0) {
+            $code = 1;
+        }
         // 兼容抖音获取应用授权调用凭证
         if (isset($return['data']) && !empty($return['data']) && isset($return['data']['error_code']) && $return['data']['error_code'] == 0) {
             $code = 1;
@@ -21,6 +25,9 @@ class Response
             $err_tips = '获取失败';
             if (isset($return['err_no'])) {
                 $err_no = $return['err_no'];
+            }
+            if (isset($return['err_code'])) {
+                $err_no = $return['err_code'];
             }
             if (isset($return['data']['error_code'])) {
                 $err_no = $return['data']['error_code'];
