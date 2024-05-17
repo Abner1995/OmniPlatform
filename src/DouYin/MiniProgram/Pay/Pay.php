@@ -102,9 +102,11 @@ class Pay
         if (!isset($params['refund_amount']) || $params['refund_amount'] <= 0) {
             return ['code' => 0, 'msg' => '订单金额错误'];
         }
+        // 必须是int
+        $params['refund_amount'] = (int)$params['refund_amount'];
         $params['notify_url'] = isset($params['notify_url']) ? $params['notify_url'] : (isset($this->config['notify_url']) ? $this->config['notify_url'] : "");
         $params['sign'] = $this->getSign($params);
-        return $this->sendRequest(DouYinMiniProgramURLs::ecpay_create_refund_URL, $params);
+        return $this->sendRequest(DouYinMiniProgramURLs::ecpay_create_refund_full_URL, $params);
     }
 
     /**
