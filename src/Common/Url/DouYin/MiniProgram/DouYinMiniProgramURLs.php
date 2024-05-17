@@ -65,4 +65,6 @@ class DouYinMiniProgramURLs
     const ecpay_create_refund_full_URL = 'https://developer.toutiao.com/api/apps/ecpay/v1/create_refund';
     const ecpay_query_refund_URL = '/api/apps/ecpay/v1/query_refund';
     const ecpay_query_refund_full_URL = 'https://developer.toutiao.com/api/apps/ecpay/v1/query_refund';
+
+    const push_order_full_URL = 'https://developer.toutiao.com/api/apps/order/v2/push';
 }

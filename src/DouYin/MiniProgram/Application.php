@@ -5,6 +5,7 @@ use Abner\Omniplatform\DouYin\MiniProgram\Pay\Pay;
 use Abner\Omniplatform\Platform\AbstractApplication;
 use Abner\Omniplatform\DouYin\MiniProgram\Login\Login;
 use Abner\Omniplatform\DouYin\MiniProgram\Auth\UserToken;
+use Abner\Omniplatform\DouYin\MiniProgram\Order\OrderSync;
 use Abner\Omniplatform\DouYin\MiniProgram\Auth\NoUserToken;
 use Abner\Omniplatform\DouYin\MiniProgram\Auth\BusinessToken;
 use Abner\Omniplatform\DouYin\MiniProgram\SubscribeNotification\UrlQrcode;
@@ -53,5 +54,13 @@ class Application extends AbstractApplication
             $newconfig = array_merge($this->config, $config);
         }
         return new Pay($newconfig);
+    }
+
+    public function getOrderService($config = [])
+    {
+        if (!empty($config)) {
+            $newconfig = array_merge($this->config, $config);
+        }
+        return new OrderSync($newconfig);
     }
 }
