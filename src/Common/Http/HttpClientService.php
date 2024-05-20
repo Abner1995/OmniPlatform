@@ -83,6 +83,53 @@ class HttpClientService
     }
 
     /**
+     * 发送带有自定义内容类型的异步请求
+     * @param string $url 请求的URL地址
+     * @param array $data 要发送的数据
+     * @return array 返回请求结果，
+     * @author: zuoyi <wan19950504@outlook.com>
+     * @Date: 2024-05-11 17:44:23
+     */
+    public function sendRequestWithCustomContentTypeAsync(string $url, array $data, $isreturn = false)
+    {
+        try {
+            $headers = [
+                'Content-Type' => $this->ContentType,
+            ];
+            if (!empty($this->accessToken)) {
+                $headers[$this->accessTokenKey] = $this->accessToken;
+            }
+            if (!empty($this->ByteAuthorization)) {
+                $headers[$this->ByteAuthorizationKey] = $this->ByteAuthorization;
+            }
+            $options = [];
+            if ($this->ContentType == ContentType::application_json) {
+                $options['headers'] = $headers;
+                $data = json_encode($data);
+                $options['body'] = $data;
+            } elseif ($this->ContentType == ContentType::application_urlencoded) {
+                $options['headers'] = $headers;
+                if ($this->isAddUrlParams) {
+                    $queryString = http_build_query($data);
+                    $url = $queryString ? $url . (stripos($url, "?") !== false ? "&" : "?") . $queryString : $url;
+                } else {
+                    $options['form_params'] = $data;
+                }
+            }
+            $response = $this->client->requestAsync('POST', $url, $options);
+            if ($isreturn) {
+                if (!empty($response)) {
+                    return $response;
+                } else {
+                    return ['code' => 0, 'msg' => '请求失败'];
+                }
+            }
+        } catch (GuzzleException $e) {
+            return ['code' => 0, 'msg' => $e->getMessage()];
+        }
+    }
+
+    /**
      * 发送POST请求
      * @param string $url 请求URL
      * @param array $data POST数据

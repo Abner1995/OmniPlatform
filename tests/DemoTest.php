@@ -27,10 +27,16 @@ class DemoTest extends TestCase
             ]
         ];
         $httpClient = new HttpClientService($config);
-        $return = $httpClient->sendPostRequest('https://www.baidu.com', [
+        // $return = $httpClient->sendPostRequest('https://www.baidu.com', [
+        //     'a'=>1,
+        //     'n'=>1,
+        // ]);
+        $return = $httpClient->sendRequestWithCustomContentTypeAsync('https://www.baidu.com', [
             'a'=>1,
             'n'=>1,
         ]);
+        echo "111";
+        echo "\r\n";
         print_r($return);die;
     }
 
