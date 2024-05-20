@@ -82,8 +82,8 @@ class OrderSync
      * @return array
      * @author: zuoyi <wan19950504@outlook.com>
      * @Date: 2024-05-14 14:16:42
-     */    
-    public function pushAsync($params = [])
+     */
+    public function pushAsync($params = [], $isreturn = false)
     {
         if (empty($params['access_token'])) {
             return ['code' => 0, 'msg' => 'access_token不能为空'];
@@ -97,8 +97,7 @@ class OrderSync
         $params['app_name'] = isset($params['app_name']) ? $params['app_name'] : 'douyin';
         $params['order_type'] = isset($params['order_type']) ? $params['order_type'] : 0;
         $params['update_time'] = isset($params['update_time']) ? $params['update_time'] : time();
-        $params['isreturn'] = isset($params['isreturn']) ? $params['isreturn'] : false;
-        return $this->sendRequestAsync(DouYinMiniProgramURLs::push_order_full_URL, $params);
+        return $this->sendRequestAsync(DouYinMiniProgramURLs::push_order_full_URL, $params, $isreturn);
     }
 
     private function sendRequest($url, $params = [])
