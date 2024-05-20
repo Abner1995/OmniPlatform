@@ -34,7 +34,7 @@ class DemoTest extends TestCase
         $return = $httpClient->sendRequestWithCustomContentTypeAsync('https://www.baidu.com', [
             'a'=>1,
             'n'=>1,
-        ]);
+        ], false);
         echo "111";
         echo "\r\n";
         print_r($return);die;

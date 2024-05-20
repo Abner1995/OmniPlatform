@@ -6,7 +6,9 @@ use GuzzleHttp\Client;
 use GuzzleHttp\Middleware;
 use GuzzleHttp\HandlerStack;
 use Monolog\Handler\StreamHandler;
+use Psr\Http\Message\ResponseInterface;
 use GuzzleHttp\Exception\GuzzleException;
+use GuzzleHttp\Exception\RequestException;
 use Abner\Omniplatform\Common\Config\Platform;
 use Abner\Omniplatform\DouYin\Common\APIVersion;
 use Abner\Omniplatform\Common\Config\AccessTokenKey;
@@ -118,12 +120,19 @@ class HttpClientService
             }
             $response = $this->client->requestAsync('POST', $url, $options);
             if ($isreturn) {
-                if (!empty($response)) {
-                    return $response;
-                } else {
-                    return ['code' => 0, 'msg' => '请求失败'];
-                }
+                return $response;
             }
+            $response->then(
+                // function (ResponseInterface $res) {
+                //     // echo $res->getStatusCode() . "\n";
+                //     // print_r($res->getBody());
+                //     // $return = $res;
+                // },
+                // function (RequestException $e) {
+                //     // echo $e->getMessage() . "\n";
+                //     // echo $e->getRequest()->getMethod();
+                // }
+            )->wait();
         } catch (GuzzleException $e) {
             return ['code' => 0, 'msg' => $e->getMessage()];
         }
