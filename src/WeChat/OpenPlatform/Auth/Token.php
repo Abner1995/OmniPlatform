@@ -24,8 +24,8 @@ class Token
             'code' => $code,
             'grant_type' => 'authorization_code',
         ];
-        $Url = WeChatOpenPlatformURLs::access_token_URL;
-        $return = $this->httpClient->sendGetRequest($Url, $params);
+        $Url = WeChatOpenPlatformURLs::access_token_URL . '?' . http_build_query($params);
+        $return = $this->httpClient->sendGetRequest($Url, []);
         if (!empty($return['access_token'])) {
             return ['code' => 1, 'msg' => '获取成功', 'data' => $return];
         } else {
@@ -43,8 +43,8 @@ class Token
             'refresh_token' => $refresh_token,
             'grant_type' => 'refresh_token',
         ];
-        $Url = WeChatOpenPlatformURLs::refresh_token_URL;
-        $return = $this->httpClient->sendGetRequest($Url, $params);
+        $Url = WeChatOpenPlatformURLs::refresh_token_URL . '?' . http_build_query($params);
+        $return = $this->httpClient->sendGetRequest($Url, []);
         // print_r($return);die;
         if (!empty($return['access_token'])) {
             return ['code' => 1, 'msg' => '获取成功', 'data' => $return];
@@ -62,8 +62,8 @@ class Token
             'access_token' => $access_token,
             'openid' => $openid,
         ];
-        $Url = WeChatOpenPlatformURLs::check_token_URL;
-        $return = $this->httpClient->sendGetRequest($Url, $params);
+        $Url = WeChatOpenPlatformURLs::check_token_URL . '?' . http_build_query($params);
+        $return = $this->httpClient->sendGetRequest($Url, []);
         // print_r($return);die;
         if (!empty($return) && isset($return['errcode']) && $return['errcode'] == 0) {
             return ['code' => 1, 'msg' => '获取成功', 'data' => $return];
@@ -81,8 +81,8 @@ class Token
             'access_token' => $access_token,
             'openid' => $openid,
         ];
-        $Url = WeChatOpenPlatformURLs::userinfo_URL;
-        $return = $this->httpClient->sendGetRequest($Url, $params);
+        $Url = WeChatOpenPlatformURLs::userinfo_URL . '?' . http_build_query($params);
+        $return = $this->httpClient->sendGetRequest($Url, []);
         // print_r($return);die;
         if (!empty($return['openid'])) {
             return ['code' => 1, 'msg' => '获取成功', 'data' => $return];
