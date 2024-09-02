@@ -10,6 +10,7 @@ use Abner\Omniplatform\DouYin\MiniProgram\Auth\NoUserToken;
 use Abner\Omniplatform\DouYin\MiniProgram\Auth\BusinessToken;
 use Abner\Omniplatform\DouYin\MiniProgram\SubscribeNotification\UrlQrcode;
 use Abner\Omniplatform\DouYin\MiniProgram\SubscribeNotification\NotifyUser;
+use Abner\Omniplatform\DouYin\MiniProgram\Operatedtrade\Pay as OperatedTradePay;
 
 class Application extends AbstractApplication
 {
@@ -54,6 +55,14 @@ class Application extends AbstractApplication
             $newconfig = array_merge($this->config, $config);
         }
         return new Pay($newconfig);
+    }
+
+    public function getOperatedTradePayService($config = [])
+    {
+        if (!empty($config)) {
+            $newconfig = array_merge($this->config, $config);
+        }
+        return new OperatedTradePay($newconfig);
     }
 
     public function getOrderService($config = [])

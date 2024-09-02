@@ -67,4 +67,25 @@ class DouYinMiniProgramURLs
     const ecpay_query_refund_full_URL = 'https://developer.toutiao.com/api/apps/ecpay/v1/query_refund';
 
     const push_order_full_URL = 'https://developer.toutiao.com/api/apps/order/v2/push';
+    
+    
+    const DouYin_Base_URL = 'https://open.douyin.com';
+
+    const operatedtrade_create_order = '/api/apps/trade/v2/order/create_order';
+    const operatedtrade_close_order = '/api/apps/trade/v2/order/close_order';
+    const operatedtrade_query_order = '/api/apps/trade/v2/order/query_order';
+    const operatedtrade_create_refund = '/api/apps/trade/v2/refund/create_refund';
+    const operatedtrade_query_refund = '/api/apps/trade/v2/refund/query_refund';
+
+    /**
+     * 获取完整的URL
+     * @param string $url
+     * @return string
+     * @author: zuoyi <wan19950504@outlook.com>
+     * @Date: 2024-09-02 09:29:33
+     */    
+    public static function getFullUrl($url)
+    {
+        return self::DouYin_Base_URL . $url;
+    }
 }
