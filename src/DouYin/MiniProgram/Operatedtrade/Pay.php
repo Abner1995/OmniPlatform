@@ -1,6 +1,7 @@
 <?php
 namespace Abner\Omniplatform\DouYin\MiniProgram\Operatedtrade;
 
+use Abner\Omniplatform\Common\Log\Log;
 use Abner\Omniplatform\DouYin\Common\Response;
 use Abner\Omniplatform\Common\Http\HttpClientService;
 use Abner\Omniplatform\Common\Url\DouYin\MiniProgram\DouYinMiniProgramURLs;
@@ -143,6 +144,48 @@ class Pay
         }
         $furl = DouYinMiniProgramURLs::getFullUrl(DouYinMiniProgramURLs::operatedtrade_query_refund);
         return $this->sendRequest($furl, $params);
+    }
+
+    /**
+     * 回调验证
+     * @param json|array|string $params
+     * @return array|bool
+     * @author: zuoyi <wan19950504@outlook.com>
+     * @Date: 2024-05-16 11:09:20
+     */
+    public function verify($params = '')
+    {
+        $result = false;
+        $order = [];
+        if (!empty($params)) {
+            $logparams = is_array(($params)) ? $params : json_decode($params, true);
+            if (!empty($logparams)) {
+                Log::addLog($this->config, $logparams);
+            }
+            if (is_array(($params))) {
+                $order = $params;
+            } else {
+                $order = json_decode($params, true);
+            }
+            $data = [];
+            if (!empty($order['msg'])) {
+                $order['msg'] = json_decode($order['msg'], true);
+                $data = [
+                    $order['timestamp'],
+                    $order['nonce'],
+                    json_encode($order['msg']),
+                    $this->config['token'],
+                ];
+            } 
+            sort($data, SORT_STRING);
+            $str = implode('', $data);
+            if (!strcmp(sha1($str), $order['msg_signature']) && !empty($order['msg_signature'])) {
+                $result = true;
+            }
+            // return $order;
+            if ($result) return $order;
+        }
+        return [];
     }
 
     private function sendRequest($url, $params = [])
