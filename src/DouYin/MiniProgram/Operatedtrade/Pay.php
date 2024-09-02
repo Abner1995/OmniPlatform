@@ -147,6 +147,9 @@ class Pay
 
     private function sendRequest($url, $params = [])
     {
+        if (!empty($this->config['accessToken'])) {
+            $this->httpClient->setAccessToken($this->config['accessToken']);
+        }
         $return = $this->httpClient->sendRequestWithCustomContentType($url, $params);
         return Response::result($return);
     }
