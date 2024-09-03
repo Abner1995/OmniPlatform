@@ -18,6 +18,8 @@ class Response
             $code = 1;
         }
         $data = !empty($return['data']) ? $return['data'] : [];
+        $extra = !empty($return['extra']) ? $return['extra'] : [];
+
         if ($code == 1) {
             $msg = '获取成功';
         } else {
@@ -43,6 +45,13 @@ class Response
             }
             if (isset($return['data']['description'])) {
                 $err_tips = $return['data']['description'];
+            }
+            // 副错误信息
+            if (isset($return['extra']['sub_error_code'])) {
+                $err_no .= '，sub：' . $return['extra']['sub_error_code'];
+            }
+            if (isset($return['extra']['sub_description'])) {
+                $err_tips .= $return['extra']['sub_description'];
             }
             $msg = '错误码：' . $err_no . '，错误信息：' . $err_tips;
         }
