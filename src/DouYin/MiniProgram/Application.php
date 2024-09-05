@@ -8,6 +8,9 @@ use Abner\Omniplatform\DouYin\MiniProgram\Auth\UserToken;
 use Abner\Omniplatform\DouYin\MiniProgram\Order\OrderSync;
 use Abner\Omniplatform\DouYin\MiniProgram\Auth\NoUserToken;
 use Abner\Omniplatform\DouYin\MiniProgram\Auth\BusinessToken;
+use Abner\Omniplatform\DouYin\MiniProgram\Locallife\Shop\Shop;
+use Abner\Omniplatform\DouYin\MiniProgram\Locallife\Goods\Goods;
+use Abner\Omniplatform\DouYin\MiniProgram\Locallife\Goods\Category;
 use Abner\Omniplatform\DouYin\MiniProgram\SubscribeNotification\UrlQrcode;
 use Abner\Omniplatform\DouYin\MiniProgram\SubscribeNotification\NotifyUser;
 use Abner\Omniplatform\DouYin\MiniProgram\Operatedtrade\Pay as OperatedTradePay;
@@ -63,6 +66,24 @@ class Application extends AbstractApplication
             $newconfig = array_merge($this->config, $config);
         }
         return new OperatedTradePay($newconfig);
+    }
+
+    public function getGoodsService($config = [])
+    {
+        $config = !empty($config) ? array_merge($this->config, $config) : [];
+        return new Goods($config);
+    }
+
+    public function getShopService($config = [])
+    {
+        $config = !empty($config) ? array_merge($this->config, $config) : [];
+        return new Shop($config);
+    }
+
+    public function getCategoryService($config = [])
+    {
+        $config = !empty($config) ? array_merge($this->config, $config) : [];
+        return new Category($config);
     }
 
     public function getOrderService($config = [])

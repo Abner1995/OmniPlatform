@@ -43,11 +43,12 @@ class HttpClientService
      * 发送带有自定义内容类型的请求
      * @param string $url 请求的URL地址
      * @param array $data 要发送的数据
+     * @param string $method 请求方式
      * @return array 返回请求结果，如果是JSON格式则解析为数组；请求失败时返回错误信息数组
      * @author: zuoyi <wan19950504@outlook.com>
      * @Date: 2024-05-11 17:44:23
-     */    
-    public function sendRequestWithCustomContentType(string $url, array $data)
+     */
+    public function sendRequestWithCustomContentType(string $url, array $data, $method = 'POST')
     {
         try {
             $headers = [
@@ -73,7 +74,7 @@ class HttpClientService
                     $options['form_params'] = $data;
                 }
             }
-            $response = $this->client->request('POST', $url, $options);
+            $response = $this->client->request($method, $url, $options);
             if (!empty($response)) {
                 return json_decode($response->getBody(), true);
             } else {

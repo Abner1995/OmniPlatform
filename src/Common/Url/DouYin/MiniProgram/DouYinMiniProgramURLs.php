@@ -71,6 +71,26 @@ class DouYinMiniProgramURLs
     
     const DouYin_Base_URL = 'https://open.douyin.com';
 
+    // 本地服务
+    // -- 商铺接入
+    const locallife_shop_sync = '/poi/supplier/sync/';
+    const locallife_shop_query = '/poi/supplier/query/';
+    const locallife_shop_query_poi_id = '/poi/query/';
+    // -- 商品库接入
+    const locallife_goods_save = '/life/goods/product/save/';
+    const locallife_goods_audit = '/life/goods/product/free_audit/';
+    const locallife_goods_operate = '/life/goods/product/operate/';
+    const locallife_goods_sync_stock = '/life/goods/stock/sync/';
+    const locallife_goods_template_get = '/life/goods/template/get/';
+    const locallife_goods_draft_get = '/life/goods/product/draft/get/';
+    const locallife_goods_online_get = '/life/goods/product/online/get/';
+    const locallife_goods_online_list = '/life/goods/product/online/list/';
+    const locallife_goods_draft_list = '/life/goods/product/draft/list/';
+    const locallife_goods_sku_save = '/life/goods/sku/batch_save/';
+    const locallife_goods_category_get = '/life/goods/category/get/';
+
+    // 交易系统
+    // -- 生活服务交易系统（账号融合版）
     const operatedtrade_create_order = '/api/apps/trade/v2/order/create_order';
     const operatedtrade_close_order = '/api/apps/trade/v2/order/close_order';
     const operatedtrade_query_order = '/api/apps/trade/v2/order/query_order';
