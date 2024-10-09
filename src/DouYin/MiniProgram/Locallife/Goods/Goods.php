@@ -163,9 +163,6 @@ class Goods
      */
     public function getOnline($params = [])
     {
-        if (empty($params['category_id']) && empty($params['out_ids'])) {
-            return ['code' => 0, 'msg' => '商品ID不能为空'];
-        }
         $furl = DouYinMiniProgramURLs::getFullUrl(DouYinMiniProgramURLs::locallife_goods_online_get);
         return $this->sendRequest($furl, $params, 'GET');
     }
