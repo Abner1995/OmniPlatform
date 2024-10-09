@@ -53,6 +53,13 @@ class Response
             if (isset($return['extra']['sub_description'])) {
                 $err_tips .= $return['extra']['sub_description'];
             }
+            // 兼容抖音生活服务/商品库接入/查询商品线上数据
+            if (isset($return['base']['gateway_code'])) {
+                $err_no .= '，gateway_code：' . $return['base']['gateway_code'];
+            }
+            if (isset($return['base']['gateway_msg'])) {
+                $err_tips .= $return['base']['gateway_msg'];
+            }
             $msg = '错误码：' . $err_no . '，错误信息：' . $err_tips;
         }
         return ['code' => $code, 'msg' => $msg, 'data' => $data];
