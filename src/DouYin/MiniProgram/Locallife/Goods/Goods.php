@@ -164,7 +164,7 @@ class Goods
     public function getOnline($params = [])
     {
         $furl = DouYinMiniProgramURLs::getFullUrl(DouYinMiniProgramURLs::locallife_goods_online_get);
-        return $this->sendRequest($furl, $params, 'GET');
+        return $this->sendGetQueryRequest($furl, $params);
     }
 
     /**
@@ -226,6 +226,12 @@ class Goods
         $params['sku_list']['status'] = !empty($params['sku_list']['status']) ? $params['sku_list']['status'] : 1;
         $furl = DouYinMiniProgramURLs::getFullUrl(DouYinMiniProgramURLs::locallife_goods_sku_save);
         return $this->sendRequest($furl, $params);
+    }
+
+    private function sendGetQueryRequest($url, $params = [])
+    {
+        $return = $this->httpClient->sendGetQueryRequest($url, $params);
+        return Response::result($return);
     }
 
     private function sendRequest($url, $params = [], $method = 'POST')
