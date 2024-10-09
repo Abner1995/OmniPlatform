@@ -164,6 +164,12 @@ class Goods
     public function getOnline($params = [])
     {
         $furl = DouYinMiniProgramURLs::getFullUrl(DouYinMiniProgramURLs::locallife_goods_online_get);
+        if (empty($this->config['accessToken'])) {
+            return ['code' => 0, 'msg' => 'token不能为空'];
+        }
+        if (!empty($this->config['accessToken'])) {
+            $params['access_token'] = $this->config['accessToken'];
+        }
         return $this->sendGetQueryRequest($furl, $params);
     }
 
